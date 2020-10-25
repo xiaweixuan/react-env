@@ -26,6 +26,7 @@
     "less": "^3.12.2",
     "less-loader": "^7.0.1",
     "mini-css-extract-plugin": "^1.0.0",
+    "mocker-api": "^2.3.5",
     "optimize-css-assets-webpack-plugin": "^5.0.4",
     "postcss-loader": "^4.0.2",
     "style-loader": "^1.2.1",
@@ -39,9 +40,11 @@
   "dependencies": {
     "antd": "^4.6.6",
     "axios": "^0.20.0",
-    "mockjs": "^1.1.0",
+    "lodash-es": "^4.17.15",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-router-dom": "^5.2.0"
+    "react-redux": "^7.2.1",
+    "react-router-dom": "^5.2.0",
+    "redux-saga": "^1.1.3"
   }
 }

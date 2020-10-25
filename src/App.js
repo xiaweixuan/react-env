@@ -1,8 +1,10 @@
 import React from 'react';
-import Todos from './pages/todo';
-import About from "./pages/about";
+import { Provider } from 'react-redux'
+import Todos from './pages/todo/index';
+import About from "./pages/about/index";
 import { Switch, HashRouter, BrowserRouter } from 'react-router-dom';
 import DefaultLayout from './layouts/BasicLayout';
+import store from './module/store';
 
 const App = () => {
     const routerList = (
@@ -13,10 +15,13 @@ const App = () => {
         </Switch>
     );
     return (
-        process.env.NODE_ENV==='dev' ? 
-            <BrowserRouter>{routerList}</BrowserRouter> : 
-            <HashRouter>{routerList}</HashRouter>
-
+        <Provider store={store}>
+            {
+                process.env.NODE_ENV === 'dev' ?
+                    <BrowserRouter>{routerList}</BrowserRouter> :
+                    <HashRouter>{routerList}</HashRouter>
+            }
+        </Provider>
     )
 
 }

@@ -5,16 +5,8 @@ import styles from "./list.less";
 const List = (props) => {
   const { 
     tolist,
-    listChange,
+    onRemove,
   } = props;
-
-  const delList = (id) => {
-    let index = 0;
-    tolist.map((item,idx)=>{
-      item.id === id && (index = idx)
-    })
-    listChange(index);
-  }
   
   return (
     <Fragment>
@@ -22,11 +14,11 @@ const List = (props) => {
         tolist.map((li, index) => (
           <li key={index} className={`${styles.hoverShow} ${styles.listItem}`}>
             <span className={styles.listItemSpan}>
-              {li.value}
+              {li.content}
             </span>
             <Button 
               size="small" 
-              onClick={()=>delList(li.id)} 
+              onClick={()=>onRemove(li.id)} 
               data-id={index}
             >
               删除

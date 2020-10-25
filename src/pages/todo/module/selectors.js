@@ -1,0 +1,1 @@
+export const getTodoListById = (byId, allIds) => allIds.map(id => byId[id]);

@@ -2,7 +2,7 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-    entry: './src/index.js',
+    entry: ['babel-polyfill','./src/index.js'], // 此处babel-polyfill解决编译async/await不被解析问题
     output: {
         filename: 'js/[name].[hash:6].js',
         path: path.join(__dirname, '../dist')
@@ -10,7 +10,7 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.js$/,
+                test: /\.jsx?$/,
                 use: 'babel-loader',
                 exclude: /(node_modules)/,
             },

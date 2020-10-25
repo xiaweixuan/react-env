@@ -1,7 +1,9 @@
 const { merge } = require('webpack-merge');
+const path = require('path');
 const webpack = require('webpack')
 const baseConfig = require('./webpack.base.conf.js');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const apiMocker = require('mocker-api');
 
 module.exports = merge(baseConfig, {
   mode: 'development',
@@ -12,7 +14,7 @@ module.exports = merge(baseConfig, {
     }),
     new webpack.DefinePlugin({
       'process.env': {
-        'NODE_ENV': JSON.stringify('dev')
+        'NODE_ENV': JSON.stringify('development')
       }
     }),
     new webpack.DllReferencePlugin({
@@ -24,6 +26,9 @@ module.exports = merge(baseConfig, {
     inline: true,
     historyApiFallback: true,
     contentBase: './dist',
-    port: 3000
+    port: 3000,
+    before(app) {
+      apiMocker(app, path.resolve('./mock'))
+    }
   }
 });
