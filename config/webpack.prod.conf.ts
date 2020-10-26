@@ -1,6 +1,6 @@
 const { merge } = require('webpack-merge');
 const webpack = require('webpack')
-const baseConfig = require('./webpack.base.conf.js');
+const baseConfig = require('./webpack.base.conf.ts');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');

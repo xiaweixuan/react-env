@@ -1,7 +1,7 @@
 const { merge } = require('webpack-merge');
 const path = require('path');
-const webpack = require('webpack')
-const baseConfig = require('./webpack.base.conf.js');
+const webpack = require('webpack');
+const baseConfig = require('./webpack.base.conf.ts');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const apiMocker = require('mocker-api');
 
@@ -28,7 +28,7 @@ module.exports = merge(baseConfig, {
     contentBase: './dist',
     port: 3000,
     before(app) {
-      apiMocker(app, path.resolve('./mock'))
+      // apiMocker(app, path.resolve('./mock')) //ts无法解析
     }
   }
 });
