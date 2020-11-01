@@ -8,9 +8,9 @@ export async function querySentences() {
       }
     } = await axios.get('/test');
     // axios.get('http://api.xiawx.top/photos/all')
-    const byId = {};
-    const allIds = [];
-    result.map(item=>{
+    const byId: any = {};
+    const allIds: any = [];
+    result.map((item: any)=>{
       allIds.push(item.open_id);
       byId[item.open_id]=item;
     });

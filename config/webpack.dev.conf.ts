@@ -28,7 +28,7 @@ module.exports = merge(baseConfig, {
     contentBase: './dist',
     port: 3000,
     before(app) {
-      // apiMocker(app, path.resolve('./mock')) //ts无法解析
+      apiMocker(app, path.resolve('./mock/index.ts')) //ts无法解析
     }
   }
 });

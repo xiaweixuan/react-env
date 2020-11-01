@@ -1,14 +1,16 @@
-import React, { useEffect } from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 import { changeByIdIcon } from './module/action';
 import image from '../../assets/img.jpg';
 import { getSentenceListById } from './module/selectors';
 
-const About = (props) => {
+const { useEffect } = React;
+
+const About = (props: any) => {
   const { sentenceList, dispatch } = props;
 
   useEffect(() => {
-    const action = changeByIdIcon();
+    const action = changeByIdIcon({});
     dispatch(action);
   }, []);
 
@@ -17,7 +19,7 @@ const About = (props) => {
     <img width='275px' src={image} />
     <div>
       {
-        sentenceList.map(item =>
+        sentenceList.map((item: any) =>
           <div
             style={{ marginTop: '15px' }}
             key={item.open_id}
@@ -30,7 +32,7 @@ const About = (props) => {
   </div>)
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: any) => {
   const {
     aboutReducer: {
       sentences: {
@@ -43,7 +45,7 @@ const mapStateToProps = (state) => {
     sentenceList: getSentenceListById(byId, allIds),
   }
 }
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch: any) => {
   return {
     dispatch,
   }

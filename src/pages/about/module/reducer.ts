@@ -1,13 +1,12 @@
 import { combineReducers } from 'redux';
 import { SAVE_ABOUT } from './actionType';
 
-export const initialState = {
+export const initialState: any = {
   byId: {},
   allIds: [],
 };
-//
-//修改为savesentences changesentencesbyid changesentencesbyallids
-const sentences = (state = initialState, action)=> {
+
+const sentences = (state = initialState, action: any)=> {
   switch (action.type) {
     case SAVE_ABOUT:
       return {...state, ...action.payload};

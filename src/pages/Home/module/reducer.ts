@@ -1,12 +1,14 @@
 import { combineReducers } from 'redux';
 import { SAVE_TODOLIST, CHANGE_TODOLIST_BY_ID, CHANGE_TODOLIST_ALL_IDS } from './actionType';
+import { ITodos } from './data';
 import { pull } from 'lodash-es';
 
-export const initialState = {
-  byId: {}, // id:string content:string state:doing | done
+export const initialState: ITodos = {
+  byId: {},
   allIds: [],
 };
-const todoList = (state = initialState, action)=> {
+
+const todoList = (state = initialState, action: any)=> {
   switch (action.type) {
     case SAVE_TODOLIST:
       return {...state, ...action.payload.todo};

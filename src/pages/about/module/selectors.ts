@@ -1,1 +1,1 @@
-export const getSentenceListById = (byId, allIds) => allIds.map(id => byId[id]);
+export const getSentenceListById = (byId: any, allIds: any) => allIds.map((id: any) => byId[id]);
