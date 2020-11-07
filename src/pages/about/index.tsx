@@ -1,16 +1,25 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { changeByIdIcon } from './module/action';
+import { IChangeByIdIconAction, CHANGE_BY_ID_ICON } from './module/actionType';
 import image from '../../assets/img.jpg';
 import { getSentenceListById } from './module/selectors';
+import { IAboutReducer } from './module/reducer';
+import { ISentenceItem } from './module/data';
 
 const { useEffect } = React;
 
-const About = (props: any) => {
+export interface AboutProps {
+  sentenceList: ISentenceItem[];
+  dispatch: React.Dispatch<IChangeByIdIconAction>;
+}
+
+const About: React.FC<AboutProps> = (props) => {
   const { sentenceList, dispatch } = props;
 
   useEffect(() => {
-    const action = changeByIdIcon({});
+    const action: IChangeByIdIconAction = {
+      type: CHANGE_BY_ID_ICON
+    };
     dispatch(action);
   }, []);
 
@@ -19,12 +28,12 @@ const About = (props: any) => {
     <img width='275px' src={image} />
     <div>
       {
-        sentenceList.map((item: any) =>
+        sentenceList.map((item: ISentenceItem) =>
           <div
             style={{ marginTop: '15px' }}
-            key={item.open_id}
+            key={item.id}
           >
-            {item.describe}
+            {item.content}
           </div>
         )
       }
@@ -32,7 +41,9 @@ const About = (props: any) => {
   </div>)
 }
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (
+  state: IAboutReducer
+): Pick<AboutProps, 'sentenceList'> => {
   const {
     aboutReducer: {
       sentences: {
@@ -45,11 +56,12 @@ const mapStateToProps = (state: any) => {
     sentenceList: getSentenceListById(byId, allIds),
   }
 }
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    dispatch,
-  }
-}
+const mapDispatchToProps = (
+  dispatch: React.Dispatch<IChangeByIdIconAction>
+): Pick<AboutProps, 'dispatch'> => ({
+  dispatch
+})
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps

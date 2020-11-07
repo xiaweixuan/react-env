@@ -1,1 +1,3 @@
-export const getSentenceListById = (byId: any, allIds: any) => allIds.map((id: any) => byId[id]);
+import { ISentences } from './data';
+
+export const getSentenceListById = (byId: ISentences['byId'], allIds: ISentences['allIds']) => allIds.map((id: number) => byId[id]);

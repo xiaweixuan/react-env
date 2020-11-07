@@ -1,5 +1,11 @@
-import { combineReducers } from 'redux';
-import { SAVE_TODOLIST, CHANGE_TODOLIST_BY_ID, CHANGE_TODOLIST_ALL_IDS } from './actionType';
+import {
+  SAVE_TODOLIST,
+  CHANGE_TODOLIST_BY_ID,
+  CHANGE_TODOLIST_ALL_IDS,
+  ISaveTodoListAction,
+  IChangeTodoListByIdAction,
+  IChangeTodoListAllIdsAction,
+} from './actionType';
 import { ITodos } from './data';
 import { pull } from 'lodash-es';
 
@@ -8,39 +14,30 @@ export const initialState: ITodos = {
   allIds: [],
 };
 
-const todoList = (state = initialState, action: any)=> {
+type actionType = ISaveTodoListAction | IChangeTodoListByIdAction | IChangeTodoListAllIdsAction;
+
+export const todoListReducer = (state: ITodos, action: actionType): ITodos => {
   switch (action.type) {
     case SAVE_TODOLIST:
-      return {...state, ...action.payload.todo};
+      return { ...state, ...action.payload };
     case CHANGE_TODOLIST_BY_ID:
-      const {
-        byId: { ...newById },
-      } = state;
-      const { payload: { todo } } = action;
-      newById[todo.id] = todo;
-      return { ...state, byId: newById };
+      return {
+        ...state,
+        byId: {
+          ...state.byId,
+          ...{ [action.payload.id]: action.payload },
+        },
+      };
     case CHANGE_TODOLIST_ALL_IDS:
-      const {
-        allIds: [...newAllIds],
-      } = state;
+      const { allIds: [...newAllIds] } = state;
       const { payload: { changeType, id } } = action;
-      switch (changeType) {
-        case 'add':
-          newAllIds.unshift(id);
-          break;
-        case 'remove':
-          pull(newAllIds, id);
-          break;
-        default:
-          break;
+      if (changeType === 'add') {
+        newAllIds.unshift(id);
+      } else {
+        pull(newAllIds, id);
       }
       return { ...state, allIds: newAllIds };
     default:
       return state;
   }
 }
-
-const todoReducer = combineReducers({
-  todoList,
-})
-export default todoReducer;

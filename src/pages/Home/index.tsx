@@ -1,40 +1,53 @@
 import * as React from 'react';
-import { connect } from 'react-redux'
 import Input from '../../components/Input';
 import List from './components/List';
-import { setSentences, removeSentences } from './module/action';
 import { getTodoListById } from './module/selectors';
-import { REMOVE_SENTENCES, IRemoveSentencesAction } from './module/actionType';
+import {
+  CHANGE_TODOLIST_ALL_IDS,
+  CHANGE_TODOLIST_BY_ID,
+} from './module/actionType';
 import { ITodoItem } from './module/data'
+import { initialState, todoListReducer } from './module/reducer';
 
-const { useState } = React;
+const { useState, useReducer } = React;
 
-export interface HomeProps extends React.Dispatch<IRemoveSentencesAction> {
-  todoList?: Array<ITodoItem>;
+export interface HomeProps {
+  todoList: Array<ITodoItem>;
 }
 
-const Home: React.FC<HomeProps> = (props) => {
-  const { todoList, dispatch } = props;
+const Home: React.FC<HomeProps> = () => {
 
   const [targetValue, setTargetValue] = useState('');
+  const [todoListState, todoListDispatch] = useReducer(todoListReducer, initialState);
+  const todoList = getTodoListById(todoListState.byId, todoListState.allIds);
 
   const handleRemove = (id: number) => {
-    const action = {
-      type: REMOVE_SENTENCES,
-      payload: { id },
-    }
-    dispatch(action);
+    todoListDispatch({
+      type: CHANGE_TODOLIST_ALL_IDS,
+      payload: {
+        changeType: 'remove',
+        id: id,
+      }
+    });
   }
+
   const handleAddItem = () => {
     if (!targetValue) return;
-    const action = setSentences({
-      changeType: 'add',
-      todo: {
-        id: +new Date,
-        content: targetValue,
-      },
+    const newItemId = +new Date;
+    todoListDispatch({
+      type: CHANGE_TODOLIST_ALL_IDS,
+      payload: {
+        changeType: 'add',
+        id: newItemId,
+      }
     });
-    dispatch(action);
+    todoListDispatch({
+      type: CHANGE_TODOLIST_BY_ID,
+      payload: {
+        id: newItemId,
+        content: targetValue,
+      }
+    });
     setTargetValue('');
   }
 
@@ -55,25 +68,4 @@ const Home: React.FC<HomeProps> = (props) => {
   )
 }
 
-const mapStateToProps = (state: any) => {
-  const {
-    todoReducer: {
-      todoList: {
-        allIds,
-        byId,
-      }
-    }
-  } = state;
-  return {
-    todoList: getTodoListById(byId, allIds),
-  }
-}
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    dispatch,
-  }
-}
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Home);
+export default Home;
