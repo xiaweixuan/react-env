@@ -5,7 +5,8 @@ module.exports = {
     entry: ['babel-polyfill','./src/index.js'], // 此处babel-polyfill解决编译async/await不被解析问题
     output: {
         filename: 'js/[name].[hash:6].js',
-        path: path.join(__dirname, '../dist')
+        path: path.join(__dirname, '../dist'),
+        publicPath: '/'
     },
     module: {
         rules: [

@@ -22,13 +22,14 @@ module.exports = merge(baseConfig, {
       manifest: require('../dist/react.manifest.json')
     }),
   ],
+  stats: 'errors-only',
   devServer: {
     inline: true,
     historyApiFallback: true,
     contentBase: './dist',
     port: 3000,
-    before(app) {
-      apiMocker(app, path.resolve('./mock'))
-    }
+    // before(app) {
+    //   apiMocker(app, path.resolve('./mock'))
+    // }
   }
 });
