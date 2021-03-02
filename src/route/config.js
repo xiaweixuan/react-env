@@ -3,6 +3,8 @@ import UserLayout from '../layouts/UserLayout'
 import Login from '../pages/User/Login';
 import Account from '../pages/Account';
 import Article from '../pages/Article';
+import CreateAccount from '../pages/Account/CreateAccount';
+import AccountLayout from '../pages/Account/_layout';
 
 const userRouter = [
   {
@@ -29,7 +31,17 @@ const appRouter = [
       {
         path: '/account',
         name: '个人信息',
-        component: Account,
+        component: AccountLayout,
+        routes: [
+          {
+            path: '/account/',
+            component: Account,
+          },
+          {
+            path: '/account/create',
+            component: CreateAccount,
+          },
+        ],
       },
       {
         path: '/article',

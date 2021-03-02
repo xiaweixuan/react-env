@@ -1,6 +1,5 @@
 import React from 'react';
-import AccountStore, { useStoreState, useStoreActions } from './Store';
-import connect from '../../utils/connect';
+import { useStoreState, useStoreActions } from './Store';
 import styles from './index.less';
 
 const Account = (props) => {
@@ -16,4 +15,4 @@ const Account = (props) => {
   </div>
 }
 
-export default connect(AccountStore)(Account);
+export default Account;
