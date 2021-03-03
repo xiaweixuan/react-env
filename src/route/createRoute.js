@@ -14,13 +14,11 @@ const RouterView = (props) => {
           key={idx}
           exact={routes ? false : true}
           render={props => {
-            const com = <Component {...props} >{
+            const newprops = { ...props, routes};
+            const com = Component ? <Component {...newprops} >{
               routes && <RouterView routes={routes} />
-            }</Component>
-            return Wrapper ? <Wrapper>{com}</Wrapper> : com
-            // return <Component {...props} >{
-            //   routes && <RouterView routes={routes} />
-            // }</Component>
+            }</Component> : <RouterView routes={routes} />;
+            return Wrapper ? <Wrapper {...newprops}>{com}</Wrapper> : com
           }}
         />
       }
